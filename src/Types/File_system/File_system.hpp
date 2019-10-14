@@ -5,8 +5,10 @@
 #include <algorithm>
 #include <string>
 
-#include "Tools/system_functions.h"
+#include "Tools/utilities.hpp"
 #include "Types/Argument_type_limited.hpp"
+
+#include <iostream>
 
 namespace cli
 {
@@ -16,21 +18,20 @@ enum class openmode : uint8_t {read, write, read_write};
 template <typename Read_F>
 std::string modify_path(const std::string& val)
 {
-	std::string binary_path = get_binary_path();
+	std::string binary_path = cli::get_binary_path();
 	if (!binary_path.empty())
 	{
 		std::string basedir, filename;
-		split_path(binary_path, basedir, filename);
-		auto bin_name = get_binary_name();
+		cli::split_path(binary_path, basedir, filename);
 
 		std::vector<std::string> paths = {
 			"../../",
 			"../../../",
-			"../share/" + bin_name + "/",
-			"../../share/" + bin_name + "/",
-			"/usr/share/" + bin_name + "/",
-			"/usr/share/" + bin_name + "/",
-			"/usr/local/share/" + bin_name + "/",
+			"../share/" + filename + "/",
+			"../../share/" + filename + "/",
+			"/usr/share/" + filename + "/",
+			"/usr/share/" + filename + "/",
+			"/usr/local/share/" + filename + "/",
 		};
 
 		for (auto &path : paths)

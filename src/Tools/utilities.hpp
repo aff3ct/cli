@@ -3,6 +3,7 @@
 
 #include <utility>
 #include <vector>
+#include <string>
 #include <tuple>
 
 namespace cli
@@ -46,6 +47,26 @@ Ret apply_tuple(Ret (*pf)(Args...), const std::tuple<Args...>&  tup);
 
 template<class Ret, class ... Args>
 Ret apply_tuple(Ret (*pf)(Args...), std::tuple<Args...>&&  tup);
+
+/******************************************************************************
+               SYSTEM FUNCTIONS
+ ******************************************************************************/
+
+/*!
+ * \brief return the full location/path of the binary
+ *
+ * \return the binary path if supported, empty string else
+ */
+std::string get_binary_path();
+
+/*!
+ * \brief split a path in basedir and filename
+ *
+ * \param path is the path (basedir/filename)
+ * \param basedir is the directory without the filename
+ * \param filename is the name of the file without the base directory
+ */
+void split_path(const std::string& path, std::string &basedir, std::string &filename);
 
 }
 
