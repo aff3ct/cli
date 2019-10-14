@@ -20,6 +20,8 @@
 namespace cli
 {
 
+void disable_colors(const bool disabled = true);
+
 /*!
  * \class Argument_handler
  * \brief Eases the management of the arguments from the command line.

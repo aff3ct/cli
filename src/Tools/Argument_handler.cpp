@@ -9,6 +9,14 @@
 
 using namespace cli;
 
+void cli::disable_colors(const bool disabled)
+{
+	if (disabled)
+		rang::setControlMode(rang::control::Off);
+	else
+		rang::setControlMode(rang::control::Auto);
+}
+
 Argument_handler
 ::Argument_handler(const int argc, const char** argv, std::ostream& help_os)
 : help_os(help_os), help_display_keys(false)
