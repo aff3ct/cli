@@ -6,8 +6,6 @@
 #include <string>
 
 #include "Tools/system_functions.h"
-#include "Tools/version.h"
-
 #include "Types/Argument_type_limited.hpp"
 
 namespace cli
@@ -23,23 +21,16 @@ std::string modify_path(const std::string& val)
 	{
 		std::string basedir, filename;
 		split_path(binary_path, basedir, filename);
-
-		std::string aff3ct_version = version();
-		if (!aff3ct_version.empty() && aff3ct_version[0] == 'v')
-			aff3ct_version.erase(0, 1); // rm the 'v'
+		auto bin_name = get_binary_name();
 
 		std::vector<std::string> paths = {
 			"../../",
 			"../../../",
-			"../share/aff3ct-" + aff3ct_version + "/",
-			"../../share/aff3ct-" + aff3ct_version + "/",
-			"/usr/share/aff3ct-" + aff3ct_version + "/",
-			"/usr/share/aff3ct-" + aff3ct_version + "/",
-			"/usr/local/share/aff3ct-" + aff3ct_version + "/",
-			"../share/aff3ct/",
-			"../../share/aff3ct/",
-			"/usr/share/aff3ct/",
-			"/usr/local/share/aff3ct/",
+			"../share/" + bin_name + "/",
+			"../../share/" + bin_name + "/",
+			"/usr/share/" + bin_name + "/",
+			"/usr/share/" + bin_name + "/",
+			"/usr/local/share/" + bin_name + "/",
 		};
 
 		for (auto &path : paths)

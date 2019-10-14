@@ -2,10 +2,15 @@
 #define ARGUMENT_UTILITIES_HPP
 
 #include <utility>
+#include <vector>
 #include <tuple>
 
 namespace cli
 {
+
+std::vector<std::string> split(const std::string &s);
+
+void getline(std::istream &file, std::string &line);
 
 /******************************************************************************
                TUPLE UTILITIES
@@ -34,23 +39,16 @@ struct make_indexes : make_indexes_impl<0, index<>, Types...>
 
 
 template<class Ret, class... Args, int... Indexes >
-Ret apply_tuple_helper( Ret (*pf)(Args...), index< Indexes... >, std::tuple<Args...>&& tup)
-{
-    return pf( std::forward<Args>( std::get<Indexes>(tup))... );
-}
+Ret apply_tuple_helper( Ret (*pf)(Args...), index< Indexes... >, std::tuple<Args...>&& tup);
 
 template<class Ret, class ... Args>
-Ret apply_tuple(Ret (*pf)(Args...), const std::tuple<Args...>&  tup)
-{
-    return apply_tuple_helper(pf, typename make_indexes<Args...>::type(), std::tuple<Args...>(tup));
-}
+Ret apply_tuple(Ret (*pf)(Args...), const std::tuple<Args...>&  tup);
 
 template<class Ret, class ... Args>
-Ret apply_tuple(Ret (*pf)(Args...), std::tuple<Args...>&&  tup)
-{
-    return apply_tuple_helper(pf, typename make_indexes<Args...>::type(), std::forward<std::tuple<Args...>>(tup));
-}
+Ret apply_tuple(Ret (*pf)(Args...), std::tuple<Args...>&&  tup);
 
 }
+
+#include "utilities.hxx"
 
 #endif /* ARGUMENT_UTILITIES_HPP */

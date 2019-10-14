@@ -6,9 +6,8 @@
 #include <typeinfo>
 #include <string>
 
-#include "Maps/Argument_map_info.hpp"
-#include "Maps/Argument_map_group.hpp"
-#include "Maps/Argument_map_value.hpp"
+#include "Types/Argument_type.hpp"
+#include "Maps/Argument_info.hpp"
 
 namespace cli
 {
@@ -56,13 +55,13 @@ namespace cli
  ******************************************************************************/
 
 	template <typename T, typename... Options>
-	void add_options(tools::Argument_type_limited_T<T>& atl, const size_t set_pos, Options... new_options)
+	void add_options(cli::Argument_type_limited_T<T>& atl, const size_t set_pos, Options... new_options)
 	{
 		auto* set_ptr = (&atl)->get_range(set_pos);
 
 		try
 		{
-			auto* arg_range = static_cast<tools::Set_range<T>*>(set_ptr);
+			auto* arg_range = static_cast<cli::Set_range<T>*>(set_ptr);
 			arg_range->add_options({new_options...});
 		}
 		catch(std::exception&)
@@ -77,11 +76,11 @@ namespace cli
 	template <typename T, typename... Options>
 	void _add_options(Argument_type& at, const size_t set_pos, Options... new_options)
 	{
-		tools::Argument_type_limited_T<T>* limited;
+		cli::Argument_type_limited_T<T>* limited;
 
 		try
 		{
-			limited = dynamic_cast<tools::Argument_type_limited_T<T>*>(&at);
+			limited = dynamic_cast<cli::Argument_type_limited_T<T>*>(&at);
 		}
 		catch(std::exception&)
 		{

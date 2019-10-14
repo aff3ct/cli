@@ -4,8 +4,8 @@
 #include <map>
 #include <rang.hpp>
 
-#include "Tools/general_utils.h"
-#include "Argument_handler.hpp"
+#include "Tools/utilities.hpp"
+#include "Tools/Argument_handler.hpp"
 
 using namespace cli;
 

@@ -8,7 +8,7 @@
 #include <tuple>
 
 #include "Types/Argument_type_limited.hpp"
-#include "utilities.hpp"
+#include "Tools/utilities.hpp"
 #include "Splitter/Splitter.hpp"
 
 namespace cli
@@ -143,8 +143,8 @@ List2D(Argument_type* val_type,
       const std::tuple<Ranges1*...>& ranges1 = std::tuple<>(),
       const std::tuple<Ranges2*...>& ranges2 = std::tuple<>())
 {
-	Argument_type* listD2 = tools::apply_tuple(List<T,S2,Ranges2...>, std::tuple_cat(std::make_tuple(val_type), ranges2));
-	return tools::apply_tuple(List<std::vector<T>,S1,Ranges1...>, std::tuple_cat(std::make_tuple(listD2), ranges1));
+	Argument_type* listD2 = cli::apply_tuple(List<T,S2,Ranges2...>, std::tuple_cat(std::make_tuple(val_type), ranges2));
+	return cli::apply_tuple(List<std::vector<T>,S1,Ranges1...>, std::tuple_cat(std::make_tuple(listD2), ranges1));
 }
 
 template <typename T = std::string,
@@ -155,9 +155,9 @@ List2D(Argument_type* val_type,
       std::tuple<Ranges1*...>&& ranges1 = std::tuple<>(),
       std::tuple<Ranges2*...>&& ranges2 = std::tuple<>())
 {
-	Argument_type* listD2 = tools::apply_tuple(List<T,S2,Ranges2...>, std::tuple_cat(std::make_tuple(val_type),
+	Argument_type* listD2 = cli::apply_tuple(List<T,S2,Ranges2...>, std::tuple_cat(std::make_tuple(val_type),
 	                                                                                 std::forward<std::tuple<Ranges2*...>>(ranges2)));
-	return tools::apply_tuple(List<std::vector<T>,S1,Ranges1...>, std::tuple_cat(std::make_tuple(listD2),
+	return cli::apply_tuple(List<std::vector<T>,S1,Ranges1...>, std::tuple_cat(std::make_tuple(listD2),
 	                                                                             std::forward<std::tuple<Ranges1*...>>(ranges1)));
 }
 
