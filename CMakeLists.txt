@@ -11,8 +11,9 @@ project (cli)
 # ------------------------------------------------------------------------------------------------------- CMAKE OPTIONS
 # ---------------------------------------------------------------------------------------------------------------------
 
-option(CLI_COMPILE_STATIC_LIB "Compile the static library" ON )
-option(CLI_COMPILE_SHARED_LIB "Compile the shared library" OFF)
+option(CLI_COMPILE_STATIC_LIB   "Compile the static library" ON )
+option(CLI_COMPILE_SHARED_LIB   "Compile the shared library" OFF)
+option(CLI_STATUS_MESSAGE_QUIET "Quiet the status messages"  OFF)
 
 # ---------------------------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------- CMAKE CONFIGURATION
@@ -46,7 +47,9 @@ if(CLI_COMPILE_SHARED_LIB)
     set_target_properties(cli-shared-lib PROPERTIES
                                          OUTPUT_NAME cli
                                          POSITION_INDEPENDENT_CODE ON) # set -fpic
-    message(STATUS "CLI - Compile: shared library")
+    if(NOT CLI_STATUS_MESSAGE_QUIET)
+        message(STATUS "cli - Compile: shared library")
+    endif()
 endif(CLI_COMPILE_SHARED_LIB)
 
 # Static library
@@ -55,7 +58,9 @@ if(CLI_COMPILE_STATIC_LIB)
     set_target_properties(cli-static-lib PROPERTIES
                                          OUTPUT_NAME cli
                                          POSITION_INDEPENDENT_CODE ON) # set -fpic
-    message(STATUS "CLI - Compile: static library")
+    if(NOT CLI_STATUS_MESSAGE_QUIET)
+        message(STATUS "cli - Compile: static library")
+    endif()
 endif(CLI_COMPILE_STATIC_LIB)
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -82,8 +87,8 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/lib/rang/include/rang.hpp")
     target_include_directories(cli-obj PRIVATE
                                $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/lib/rang/include/>)
 else()
-    message(FATAL_ERROR "CLI - rang can't be found, try to init the submodule with the following cmd:\n"
-                        "$ git submodule update --init -- ../lib/rang/")
+    message(FATAL_ERROR "cli - rang can't be found, try to init the submodule with the following cmd:\n"
+                        "$ git submodule update --init --recursive")
 endif()
 
 # ---------------------------------------------------------------------------------------------------------------------
