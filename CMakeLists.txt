@@ -105,6 +105,8 @@ if(WIN32) # for Windows operating system in general
     set(WINDOWS_VISTA 0x0600)
     target_compile_definitions(cli-obj PUBLIC $<BUILD_INTERFACE:_WIN32_WINNT=${WINDOWS_VISTA}>
                                               $<INSTALL_INTERFACE:_WIN32_WINNT=${WINDOWS_VISTA}>)
+    target_compile_definitions(cli-obj PUBLIC $<BUILD_INTERFACE:NOMINMAX>
+                                              $<INSTALL_INTERFACE:NOMINMAX>)
 endif()
 
 # ---------------------------------------------------------------------------------------------------------------------
