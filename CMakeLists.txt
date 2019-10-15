@@ -94,8 +94,7 @@ endif()
 # dirent.h
 if(MSVC)
     target_include_directories(cli-obj PRIVATE
-                               $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/lib/MSVC/include/>
-                               $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/dirent/>)
+                               $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/lib/MSVC/include/>)
 endif()
 
 # ---------------------------------------------------------------------------------------------------------------------
