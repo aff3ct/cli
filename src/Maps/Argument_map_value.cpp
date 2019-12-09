@@ -1,5 +1,5 @@
 #include "Types/File_system/File_system.hpp"
-
+#include "Types/Number/Integer.hpp"
 #include "Maps/Argument_map_value.hpp"
 
 using namespace cli;
@@ -8,6 +8,19 @@ bool Argument_map_value
 ::exist(const Argument_tag &tags) const
 {
 	return (this->find(tags) != this->end());
+}
+
+uint64_t Argument_map_value
+::to_uint64(const Argument_tag &tags) const
+{
+	try
+	{
+		return cli::Integer_type<uint64_t>::convert_to_int(this->at(tags));
+	}
+	catch (std::exception&)
+	{
+		return 0;
+	}
 }
 
 int Argument_map_value

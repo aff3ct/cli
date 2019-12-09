@@ -22,8 +22,18 @@ public:
 
 	bool exist(const Argument_tag &tags) const;
 
+
 	/*!
-	 * \brief Returns the value for an argument.
+	 * \brief Returns the value for an argument as uint64_t.
+	 *
+	 * \param tags: list of tags associated to an argument, tags = {"Key1", "Key2", [...]}
+	 *
+	 * \return the uint64_t value of an argument with its tags (to use after the parse_arguments method).
+	 */
+	uint64_t to_uint64(const Argument_tag &tags) const;
+
+	/*!
+	 * \brief Returns the value for an argument as int.
 	 *
 	 * \param tags: list of tags associated to an argument, tags = {"Key1", "Key2", [...]}
 	 *

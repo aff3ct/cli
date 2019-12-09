@@ -1,9 +1,10 @@
 #ifndef ARGUMENT_TYPE_INTEGER_HPP_
 #define ARGUMENT_TYPE_INTEGER_HPP_
 
+#include <iostream>
 #include <stdexcept>
 #include <string>
-
+#include <typeinfo>
 #include "Types/Argument_type_limited.hpp"
 
 namespace cli
@@ -45,9 +46,19 @@ public:
 		return clone;
 	}
 
+	static T convert_to_int(const std::string& val)
+	{
+		T conv;
+		std::istringstream iss(val);
+		iss.exceptions(std::ios::failbit | std::ios::badbit);
+		iss >> conv;
+
+		return conv;
+	}
+
 	virtual T convert(const std::string& val) const
 	{
-		return (T)std::stoi(val);
+		return convert_to_int(val);
 	}
 
 	virtual void check(const std::string& val) const
