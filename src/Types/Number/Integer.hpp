@@ -1,10 +1,8 @@
 #ifndef ARGUMENT_TYPE_INTEGER_HPP_
 #define ARGUMENT_TYPE_INTEGER_HPP_
 
-#include <iostream>
 #include <stdexcept>
 #include <string>
-#include <typeinfo>
 #include "Types/Argument_type_limited.hpp"
 
 namespace cli
