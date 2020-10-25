@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <string>
 #if defined(_WIN32) || defined(_WIN64)
+#include <windows.h>
 #include <processenv.h> // GetEnvironmentVariableA
 #else
 #include <cstdlib> // std::getenv
