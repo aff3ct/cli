@@ -11,6 +11,8 @@ namespace cli
 
 std::vector<std::string> split(const std::string &s);
 
+std::vector<std::string> split(const std::string &s, char delim);
+
 void getline(std::istream &file, std::string &line);
 
 /******************************************************************************

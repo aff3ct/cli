@@ -4,6 +4,11 @@
 #include <stdexcept>
 #include <algorithm>
 #include <string>
+#if defined(_WIN32) || defined(_WIN64)
+#include <processenv.h> // GetEnvironmentVariableA
+#else
+#include <cstdlib> // std::getenv
+#endif
 
 #include "Tools/utilities.hpp"
 #include "Types/Argument_type_limited.hpp"
@@ -24,6 +29,21 @@ std::string modify_path(const std::string& val)
 		std::string basedir, filename;
 		cli::split_path(binary_path, basedir, filename);
 
+		std::string env_path = "";
+#if defined(_WIN32) || defined(_WIN64)
+		char buff[4096];
+		auto n_chars_read = (size_t)GetEnvironmentVariableA("AFF3CT_CLI_PATH", buff, 4096);
+		if (n_chars_read > 0)
+		{
+			if (n_chars_read >= 4096)
+				throw std::runtime_error("'buff' is not large enough to store the contents of the 'AFF3CT_CLI_PATH' "
+				                         "environement variable.");
+			env_path = buff;
+		}
+#else
+		if (std::getenv("AFF3CT_CLI_PATH") != nullptr)
+			env_path = std::getenv("AFF3CT_CLI_PATH");
+#endif
 		std::vector<std::string> paths = {
 			"../../",
 			"../../../",
@@ -33,6 +53,19 @@ std::string modify_path(const std::string& val)
 			"/usr/share/" + filename + "/",
 			"/usr/local/share/" + filename + "/",
 		};
+
+		if (!env_path.empty())
+		{
+#if defined(_WIN32) || defined(_WIN64)
+			auto env_paths = split(env_path, ';');
+#else
+			auto env_paths = split(env_path, ':');
+#endif
+			for (auto &p : env_paths)
+				if (p[p.length()-1] != '/')
+					p.append("/");
+			paths.insert(paths.begin(), env_paths.begin(), env_paths.end());
+		}
 
 		for (auto &path : paths)
 		{
