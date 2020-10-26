@@ -30,6 +30,12 @@ std::string modify_path(const std::string& val)
 		std::string basedir, filename;
 		cli::split_path(binary_path, basedir, filename);
 
+#if defined(_WIN32) || defined(_WIN64)
+		// remove the extension in the filename
+		std::string ext = ".exe";
+		filename.replace(filename.find(ext), ext.length(), "");
+#endif
+
 		std::string env_path = "";
 #if defined(_WIN32) || defined(_WIN64)
 		char buff[4096];
@@ -63,14 +69,25 @@ std::string modify_path(const std::string& val)
 			auto env_paths = split(env_path, ':');
 #endif
 			for (auto &p : env_paths)
+#if defined(_WIN32) || defined(_WIN64)
+				if (p[p.length()-1] != '/' && p[p.length()-1] != '\\')
+#else
 				if (p[p.length()-1] != '/')
+#endif
 					p.append("/");
 			paths.insert(paths.begin(), env_paths.begin(), env_paths.end());
 		}
 
 		for (auto &path : paths)
 		{
-			std::string full_path = (path[0] != '/') ? basedir + "/" : "";
+			std::string full_path = "";
+#if defined(_WIN32) || defined(_WIN64)
+			if (path.length() >= 3 && (path[1] != ':' || path[2] != '\\'))
+				full_path = basedir + "\\";
+#else
+			if (path.length() >= 1 && path[0] != '/')
+				full_path = basedir + "/";
+#endif
 			full_path += path + val;
 #if defined(_WIN32) || defined(_WIN64)
 			if (path[0] == '/')
