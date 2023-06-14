@@ -420,13 +420,13 @@ void Argument_handler
 
 		// if (!found)
 		// {
-			if (!title_displayed)
-			{
-				print_help_title("Other parameter(s)");
-				title_displayed = true;
-			}
+		if (!title_displayed)
+		{
+			print_help_title("Other parameter(s)");
+			title_displayed = true;
+		}
 
-			this->print_help(it_arg->first, *it_arg->second, longest_tag);
+		this->print_help(it_arg->first, *it_arg->second, longest_tag);
 		// }
 	}
 
@@ -455,13 +455,13 @@ void Argument_handler
 
 		// if (!found)
 		// {
-			if (!title_displayed)
-			{
-				print_help_title("Other parameter(s)");
-				title_displayed = true;
-			}
+		if (!title_displayed)
+		{
+			print_help_title("Other parameter(s)");
+			title_displayed = true;
+		}
 
-			this->print_help(it_arg->first, *it_arg->second, longest_tag);
+		this->print_help(it_arg->first, *it_arg->second, longest_tag);
 		// }
 	}
 }
