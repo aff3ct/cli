@@ -1,6 +1,7 @@
 #ifndef ARGUMENT_MAP_VALUE_HPP_
 #define ARGUMENT_MAP_VALUE_HPP_
 
+#include <cstdint>
 #include <stdexcept>
 #include <utility>
 #include <string>

@@ -1,6 +1,7 @@
 #ifndef ARGUMENT_INFO_HPP_
 #define ARGUMENT_INFO_HPP_
 
+#include <cstdint>
 #include <string>
 
 #include "Types/Argument_type.hpp"
