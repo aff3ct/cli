@@ -1,6 +1,7 @@
 #ifndef ARGUMENT_TYPE_FILE_SYSTEM_HPP_
 #define ARGUMENT_TYPE_FILE_SYSTEM_HPP_
 
+#include <cstdint>
 #include <stdexcept>
 #include <algorithm>
 #include <string>
